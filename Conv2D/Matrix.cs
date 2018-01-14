@@ -21,10 +21,11 @@ namespace Conv2D
 
     public class Matrix<T>
     {
-        private Matrix(int rows, int cols)
+        private Matrix(int rows, int cols, T[] storage)
         {
             this.rows = rows;
             this.cols = cols;
+            this.storage = storage;
         }
 
         private readonly T[] storage;
