@@ -34,12 +34,14 @@
         {
             if (kernel.RowCount % 2 == 0)
             {
-                throw new ArgumentException();
+                const string err = "Kernel must have an odd number of rows.";
+                throw new ArgumentException(err, "kernel");
             }
 
             if (kernel.ColumnCount % 2 == 0)
             {
-                throw new ArgumentException();
+                const string err = "Kernel must have an odd number of columns.";
+                throw new ArgumentException(err, "kernel");
             }
 
             switch (edgeHandling)
