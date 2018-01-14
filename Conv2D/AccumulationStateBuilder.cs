@@ -1,8 +1,7 @@
 namespace Conv2D
 {
     using System;
-    using MathNet.Numerics.LinearAlgebra;
-
+ 
     internal class AccumulationStateBuilder<T>
         where T : struct, IEquatable<T>, IFormattable
     {

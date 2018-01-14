@@ -1,7 +1,6 @@
 ﻿namespace Conv2D
 {
     using System;
-    using MathNet.Numerics.LinearAlgebra;
 
     public delegate T Accumulator<T>(T a, T b, double w);
 
@@ -15,7 +14,7 @@
             Tuple.Create((kernel.RowCount - 1) / 2, (kernel.ColumnCount - 1) / 2);
 
         public static double GetKernelSum(Matrix<double> kernel) =>
-            kernel.ColumnSums().Sum();
+            kernel.Sum((a, b) => a + b);
 
         public static Convolution<T> Create<T>(
             Matrix<double> kernel,
@@ -74,7 +73,7 @@
 
         public virtual Matrix<T> Apply(Matrix<T> image)
         {
-            var result = Matrix<T>.Build.DenseOfMatrix(image);
+            var result = Matrix.FromMatrix(image);
             for (var row = 0; row < image.RowCount; row++)
             {
                 for (var col = 0; col < image.ColumnCount; col++)

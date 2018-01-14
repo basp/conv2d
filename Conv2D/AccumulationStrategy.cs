@@ -1,7 +1,6 @@
 namespace Conv2D
 {
     using System;
-    using MathNet.Numerics.LinearAlgebra;
 
     public abstract class AccumulationStrategy<T> : IAccumulationStrategy<T>
         where T: struct, IEquatable<T>, IFormattable
