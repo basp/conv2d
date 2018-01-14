@@ -20,18 +20,18 @@
         public static Convolution<T> Create<T>(
             Matrix<double> kernel,
             Accumulator<T> accumulate,
-            EdgeHandling edgeHandling) where T: struct, IEquatable<T>, IFormattable
+            EdgeHandling edgeHandling) where T : struct, IEquatable<T>, IFormattable
         {
             if (kernel.RowCount % 2 == 0)
             {
                 const string err = "Kernel must have an odd number of rows.";
-                throw new ArgumentException(err, "kernel");
+                throw new ArgumentException(err, nameof(kernel));
             }
 
             if (kernel.ColumnCount % 2 == 0)
             {
                 const string err = "Kernel must have an odd number of columns.";
-                throw new ArgumentException(err, "kernel");
+                throw new ArgumentException(err, nameof(kernel));
             }
 
             IAccumulationStrategy<T> strategy;
@@ -50,12 +50,12 @@
                     strategy = new WrappingStrategy<T>(accumulate);
                     break;
                 default:
-                    throw new NotImplementedException();
+                    const string err = "Please specify an edge handling strategy.";
+                    throw new ArgumentException(err, nameof(edgeHandling));
             }
 
             return new Convolution<T>(kernel, strategy);
         }
-            
     }
 
     public class Convolution<T> : Convolution
