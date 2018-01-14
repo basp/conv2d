@@ -31,8 +31,7 @@ namespace Conv2D
         private readonly int rows;
         private readonly int cols;
 
-        private int GetIndex(int row, int col) =>
-            row * this.cols + col;
+        private int GetIndex(int row, int col) => row * this.cols + col;
 
         public T this[int row, int col]
         {
