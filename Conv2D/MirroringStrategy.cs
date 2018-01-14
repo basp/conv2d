@@ -2,7 +2,7 @@ namespace Conv2D
 {
     using System;
 
-    public static class MirroringStrategy<T> : AccumulationStrategy<T>
+    public class MirroringStrategy<T> : AccumulationStrategy<T>
         where T: struct, IEquatable<T>, IFormattable
     {
         public MirroringStrategy(Accumulator<T> accumulate) : base(accumulate)

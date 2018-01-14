@@ -2,7 +2,7 @@ namespace Conv2D
 {
     using System;
 
-    public static class ExtendingStrategy<T> : AccumulationStrategy<T>
+    public class ExtendingStrategy<T> : AccumulationStrategy<T>
         where T: struct, IEquatable<T>, IFormattable
     {
         public ExtendingStrategy(Accumulator<T> accumulate) : base(accumulate)
