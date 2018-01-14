@@ -16,48 +16,11 @@
 
         public static double GetKernelSum(Matrix<double> kernel) =>
             kernel.ColumnSums().Sum();
-    }
 
-    public class Convolution<T> : Convolution
-        where T : struct, IEquatable<T>, IFormattable
-    {
-        protected readonly Matrix<double> kernel;
-        protected readonly IAccumulationStrategy<T> strategy;
-
-        protected Convolution(
-            Matrix<double> kernel,
-            IAccumulationStrategy<T> strategy)
-        {
-            this.kernel = kernel;
-            this.strategy = strategy;
-        }
-
-        public virtual Matrix<T> Apply(Matrix<T> image)
-        {
-            var result = Matrix<T>.Build.DenseOfMatrix(image);
-            for (var row = 0; row < image.RowCount; row++)
-            {
-                for (var col = 0; col < image.ColumnCount; col++)
-                {
-                    var state = new AccumulationState<T>
-                    {
-                        Kernel = this.kernel,
-                        Image = image,
-                        ImageRow = row,
-                        ImageColumn = col,
-                    };
-
-                    result[row, col] = this.strategy.Accumulate(state);
-                }
-            }
-
-            return result;
-        }
-
-        public static Convolution<T> Create(
+        public static Convolution<T> Create<T>(
             Matrix<double> kernel,
             Accumulator<T> accumulate,
-            EdgeHandling edgeHandling)
+            EdgeHandling edgeHandling) where T: struct, IEquatable<T>, IFormattable
         {
             if (kernel.RowCount % 2 == 0)
             {
@@ -91,6 +54,44 @@
             }
 
             return new Convolution<T>(kernel, strategy);
+        }
+            
+    }
+
+    public class Convolution<T> : Convolution
+        where T : struct, IEquatable<T>, IFormattable
+    {
+        protected readonly Matrix<double> kernel;
+        protected readonly IAccumulationStrategy<T> strategy;
+
+        public Convolution(
+            Matrix<double> kernel,
+            IAccumulationStrategy<T> strategy)
+        {
+            this.kernel = kernel;
+            this.strategy = strategy;
+        }
+
+        public virtual Matrix<T> Apply(Matrix<T> image)
+        {
+            var result = Matrix<T>.Build.DenseOfMatrix(image);
+            for (var row = 0; row < image.RowCount; row++)
+            {
+                for (var col = 0; col < image.ColumnCount; col++)
+                {
+                    var state = new AccumulationState<T>
+                    {
+                        Kernel = this.kernel,
+                        Image = image,
+                        ImageRow = row,
+                        ImageColumn = col,
+                    };
+
+                    result[row, col] = this.strategy.Accumulate(state);
+                }
+            }
+
+            return result;
         }
     }
 }
