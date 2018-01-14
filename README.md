@@ -47,3 +47,7 @@ We cun run the **convolution** by invoking the `Apply` method and passing in our
 ```
 conv.Apply(image).Dump();
 ```
+
+### TODO
+* Remove the `MathNet.Numerics` dependency
+* Add extension methods for `Bitmap`
