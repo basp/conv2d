@@ -28,6 +28,7 @@ We also need an `Accumulator<T>` instance:
 ```
 Accumulator<double> acc = (a, b, w) => a + (w * b);
 ```
+This accumulator is the **default** acumulator for types that support the `+` and `*` operators. It will take the accumulated value (`a`) and add to that the value `b` as found using the relative coordinate from the `kernel` accumulation as factored by the weight (`w`) value found in the `kernel` itself.
 
 The **accumulator** has three arguments: 
 1. the accumulated value of type `T` (`a`)
