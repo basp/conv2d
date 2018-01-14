@@ -29,7 +29,12 @@ We also need an `Accumulator<T>` instance:
 Accumulator<double> acc = (a, b, w) => a + (w * b);
 ```
 
-The **accumulator** has three arguments: the accumulated value of type `T`, the value to be accumulated of type `T` and the weight as found from the kernel of type `double`. The job of the accumulator function is to combine those three values into a single new value of type `T` to be used in the result.
+The **accumulator** has three arguments: 
+1. the accumulated value of type `T`
+2. the value to be accumulated of type `T` 
+3. the weight as found in the kernel of type `double` 
+
+The job of the accumulator function is to combine those three values into a single new value of type `T` to be used in the result.
 
 Finally we have to decide on an edge handling strategy. In this case we'll use `EdgeHandling.Crop` and put it all together:
 
