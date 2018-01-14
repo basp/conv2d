@@ -41,7 +41,8 @@ namespace Conv2D
 							}
 
 							var w = this.kernel[this.kcp.Item1 + rk, this.kcp.Item2 + ck] / this.ksum;
-							acc = this.accumulate(acc, b, w);						}
+							acc = this.accumulate(acc, b, w);						
+						}
 					}
 
 					result[rimg, cimg] = acc;
