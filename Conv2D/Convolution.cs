@@ -5,27 +5,54 @@
 
     public delegate T Accumulator<T>(T a, T b, double w);
 
-    public abstract class Convolution<T>
+    public class Convolution
+    {
+        protected Convolution()
+        {
+        }
+
+        public static Tuple<int, int> GetKernelCenterPoint(Matrix<double> kernel) =>
+            Tuple.Create((kernel.RowCount - 1) / 2, (kernel.ColumnCount - 1) / 2);
+
+        public static double GetKernelSum(Matrix<double> kernel) =>
+            kernel.ColumnSums().Sum();
+    }
+
+    public class Convolution<T> : Convolution
         where T : struct, IEquatable<T>, IFormattable
     {
-        protected readonly Tuple<int, int> kcp;
-        protected readonly double ksum;
         protected readonly Matrix<double> kernel;
-        protected readonly Accumulator<T> accumulate;
+        protected readonly IAccumulationStrategy<T> strategy;
 
         protected Convolution(
             Matrix<double> kernel,
-            Accumulator<T> accumulate)
+            IAccumulationStrategy<T> strategy)
         {
             this.kernel = kernel;
-            this.ksum = kernel.ColumnSums().Sum();
-            this.accumulate = accumulate;
-            this.kcp = Tuple.Create(
-                (kernel.RowCount - 1) / 2,
-                (kernel.ColumnCount - 1) / 2);
+            this.strategy = strategy;
         }
 
-        public abstract Matrix<T> Apply(Matrix<T> image);
+        public virtual Matrix<T> Apply(Matrix<T> image)
+        {
+            var result = Matrix<T>.Build.DenseOfMatrix(image);
+            for (var row = 0; row < image.RowCount; row++)
+            {
+                for (var col = 0; col < image.ColumnCount; col++)
+                {
+                    var state = new AccumulationState<T>
+                    {
+                        Kernel = this.kernel,
+                        Image = image,
+                        ImageRow = row,
+                        ImageColumn = col,
+                    };
+
+                    result[row, col] = this.strategy.Accumulate(state);
+                }
+            }
+
+            return result;
+        }
 
         public static Convolution<T> Create(
             Matrix<double> kernel,
@@ -44,19 +71,26 @@
                 throw new ArgumentException(err, "kernel");
             }
 
+            IAccumulationStrategy<T> strategy;
             switch (edgeHandling)
             {
                 case EdgeHandling.Crop:
-                    return new CroppingConvolution<T>(kernel, accumulate);
+                    strategy = new CroppingStrategy<T>(accumulate);
+                    break;
                 case EdgeHandling.Extend:
-                    return new ExtendingConvolution<T>(kernel, accumulate);
+                    strategy = new ExtendingStrategy<T>(accumulate);
+                    break;
                 case EdgeHandling.Mirror:
-                    return new MirroringConvolution<T>(kernel, accumulate);
+                    strategy = new MirroringStrategy<T>(accumulate);
+                    break;
                 case EdgeHandling.Wrap:
-                    return new WrappingConvolution<T>(kernel, accumulate);
+                    strategy = new WrappingStrategy<T>(accumulate);
+                    break;
                 default:
                     throw new NotImplementedException();
             }
+
+            return new Convolution<T>(kernel, strategy);
         }
     }
 }
