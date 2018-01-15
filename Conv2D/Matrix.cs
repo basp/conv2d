@@ -2,6 +2,7 @@ namespace Conv2D
 {
     using System;
     using System.Linq;
+    using System.Text;
 
     public class Matrix
     {
@@ -57,6 +58,12 @@ namespace Conv2D
             var acc = default(T);
             Array.ForEach(this.storage, x => acc = f(acc, x));
             return acc;
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            return sb.ToString();
         }
     }
 }
