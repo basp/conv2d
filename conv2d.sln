@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Conv2D", "Conv2D\Conv2D.csproj", "{F4A12B28-1B2A-44E2-8B50-F3376DE76422}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathNet.Numerics.LinearAlgebra.Extensions", "MathNet.Numerics.LinearAlgebra.Extensions\MathNet.Numerics.LinearAlgebra.Extensions.csproj", "{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{F4A12B28-1B2A-44E2-8B50-F3376DE76422}.Release|x64.Build.0 = Release|x64
 		{F4A12B28-1B2A-44E2-8B50-F3376DE76422}.Release|x86.ActiveCfg = Release|x86
 		{F4A12B28-1B2A-44E2-8B50-F3376DE76422}.Release|x86.Build.0 = Release|x86
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|x64.ActiveCfg = Debug|x64
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|x64.Build.0 = Debug|x64
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|x86.ActiveCfg = Debug|x86
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Debug|x86.Build.0 = Debug|x86
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|x64.ActiveCfg = Release|x64
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|x64.Build.0 = Release|x64
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|x86.ActiveCfg = Release|x86
+		{B91D6CE0-4EF7-4BA4-8161-A4F0EB68E412}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
